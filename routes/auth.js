@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -5,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user"); // Import User model
 
 const jwtSecret = process.env.JWT_SECRET || "your_jwt_secret"; // Replace with a secure secret key
+console.log("🚀 ~ jwtSecret:", jwtSecret)
 
 // Route: POST /auth/signup - Register a new user
 router.post("/signup", async (req, res) => {
@@ -37,7 +39,7 @@ router.post("/signup", async (req, res) => {
       },
     };
 
-    jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" }, (err, token) => {
+    jwt.sign(payload, jwtSecret, { expiresIn: "1h" }, (err, token) => {
       if (err) throw err;
       res.json({ token });
     });

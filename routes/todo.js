@@ -8,13 +8,13 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+
 // Add new todo
 router.route("/add").post((req, res) => {
-
   const newTodo = new Todo({
     text: req.body.text,
     assigned_by: req.user.id,
-    user_id: req.body.id,
+    user_id: req.body.user_id,
     completed: false,
     updated_by: req.user.id,
     created_by: req.user.id,
@@ -23,7 +23,7 @@ router.route("/add").post((req, res) => {
 
   newTodo
     .save()
-    .then(() => res.json("Todo added!"))
+    .then(() => res.json(req.body))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
